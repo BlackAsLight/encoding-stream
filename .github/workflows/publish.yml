@@ -17,9 +17,6 @@ jobs:
 
       - name: Install Deno
         uses: denoland/setup-deno@v1
-
-      - name: Format
-        run: deno task fmt
         
       - name: Run Tests
         run: deno task test
