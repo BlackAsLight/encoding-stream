@@ -2,14 +2,14 @@
   "version": "3",
   "packages": {
     "specifiers": {
-      "jsr:@doctor/iterstar@^2.2.0": "jsr:@doctor/iterstar@2.2.0",
-      "jsr:@std/assert@^0.220.1": "jsr:@std/assert@0.220.1",
-      "jsr:@std/encoding@^0.220.1": "jsr:@std/encoding@0.220.1",
+      "jsr:@doctor/iterstar@2": "jsr:@doctor/iterstar@2.1.0",
+      "jsr:@std/assert@0": "jsr:@std/assert@0.220.1",
+      "jsr:@std/encoding@0": "jsr:@std/encoding@0.220.1",
       "jsr:@std/fmt@^0.220.1": "jsr:@std/fmt@0.220.1"
     },
     "jsr": {
-      "@doctor/iterstar@2.2.0": {
-        "integrity": "af54a7d91964225a58e907dcc02f527dad9519be33323ca9bf566270fba6e296"
+      "@doctor/iterstar@2.1.0": {
+        "integrity": "1c26c8553619a8c4f64c9c019aa28ee6a71aace7fb1f241354e6addb31e2b822"
       },
       "@std/assert@0.220.1": {
         "integrity": "88710d54f3afdd7a5761e7805abba1f56cd14e4b212feffeb3e73a9f77482425",
@@ -28,9 +28,9 @@
   "remote": {},
   "workspace": {
     "dependencies": [
-      "jsr:@doctor/iterstar@^2.2.0",
-      "jsr:@std/assert@^0.220.1",
-      "jsr:@std/encoding@^0.220.1"
+      "jsr:@doctor/iterstar@2",
+      "jsr:@std/assert@0",
+      "jsr:@std/encoding@0"
     ]
   }
 }
