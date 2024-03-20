@@ -21,5 +21,11 @@ jobs:
       - name: Run Tests
         run: deno task test
 
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Update deno.lock
+          commit_user_name: BlackAsLight
+          commit_user_email: 44320105+BlackAsLight@users.noreply.github.com
+
       - name: Publish package
         run: deno publish
