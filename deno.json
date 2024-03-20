@@ -1,6 +1,6 @@
 {
 	"name": "@doctor/encoding-stream",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"exports": {
 		"./base64": "./base64.ts",
 		"./base58": "./base58.ts",
@@ -16,8 +16,8 @@
 		"test": "deno test --allow-read=deno.json tests.ts"
 	},
 	"imports": {
-		"@doctor/iterstar": "jsr:@doctor/iterstar@^2.2.0",
-		"@std/assert": "jsr:@std/assert@^0.220.1",
-		"@std/encoding": "jsr:@std/encoding@^0.220.1"
+		"@doctor/iterstar": "jsr:@doctor/iterstar@2",
+		"@std/assert": "jsr:@std/assert@0",
+		"@std/encoding": "jsr:@std/encoding@0"
 	}
 }
