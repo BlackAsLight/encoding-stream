@@ -1,10 +1,10 @@
 {
 	"name": "@doctor/encoding-stream",
-	"version": "1.0.1",
+	"version": "1.1.0",
 	"exports": {
 		"./base64": "./base64.ts",
-		"./base58": "./base58.ts",
-		"./base32": "./base32.ts"
+		"./base32": "./base32.ts",
+		"./hex": "./hex.ts"
 	},
 	"publish": {
 		"exclude": [
@@ -12,6 +12,7 @@
 		]
 	},
 	"tasks": {
+		"check": "deno check *.ts && deno cache --lock-write *.ts",
 		"fmt": "prettier --write ./**/*.ts",
 		"test": "deno test --allow-read=deno.json tests.ts"
 	},
