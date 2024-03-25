@@ -1,7 +1,9 @@
 import { assertEquals } from '@std/assert'
+import { encodeBase64Url } from 'jsr:@std/encoding@0/base64url'
 import { encodeBase64 } from '@std/encoding/base64'
 import { encodeBase32 } from '@std/encoding/base32'
 import { encodeHex } from '@std/encoding/hex'
+import { DecodeBase64UrlStream, EncodeBase64UrlStream } from './base64url.ts'
 import { DecodeBase64Stream, EncodeBase64Stream } from './base64.ts'
 import { DecodeBase32Stream, EncodeBase32Stream } from './base32.ts'
 import { DecodeHexStream, EncodeHexStream } from './hex.ts'
@@ -30,6 +32,17 @@ async function reduce(iterable: AsyncIterable<Uint8Array>) {
 	}
 	return x
 }
+
+Deno.test(async function encodeBase64UrlTest() {
+	assertEquals(await join((await readable()).pipeThrough(new EncodeBase64UrlStream())), encodeBase64Url(await uInt8Array()))
+})
+
+Deno.test(async function decodeBase64UrlTest() {
+	assertEquals(
+		await reduce((await readable()).pipeThrough(new EncodeBase64UrlStream()).pipeThrough(new DecodeBase64UrlStream())),
+		await uInt8Array(),
+	)
+})
 
 Deno.test(async function encodeBase64Test() {
 	assertEquals(await join((await readable()).pipeThrough(new EncodeBase64Stream())), encodeBase64(await uInt8Array()))
