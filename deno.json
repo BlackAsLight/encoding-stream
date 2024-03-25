@@ -1,7 +1,8 @@
 {
 	"name": "@doctor/encoding-stream",
-	"version": "1.2.0",
+	"version": "1.2.1",
 	"exports": {
+		"./base64url": "./base64url.ts",
 		"./base64": "./base64.ts",
 		"./base32": "./base32.ts",
 		"./hex": "./hex.ts"
