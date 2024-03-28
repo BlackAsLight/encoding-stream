@@ -34,9 +34,15 @@ export class EncodeBase32Stream extends TransformStream<Uint8Array, string> {
 export class DecodeBase32Stream extends TransformStream<string, Uint8Array> {
 	constructor() {
 		super({
+			push: '',
 			transform(chunk, controller) {
-				controller.enqueue(decodeBase32(chunk))
+				const remainder = -(this.push.length + chunk.length) % 8
+				controller.enqueue(decodeBase32(this.push + chunk.slice(0, remainder || undefined)))
+				this.push = remainder ? chunk.slice(remainder) : ''
 			},
-		})
+			flush(controller) {
+				if (this.push.length) controller.enqueue(decodeBase32(this.push))
+			},
+		} as Transformer<string, Uint8Array> & { push: string })
 	}
 }
