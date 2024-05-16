@@ -10,21 +10,21 @@ import { decodeBase64, encodeBase64 } from '@std/encoding/base64'
  */
 export class EncodeBase64Stream extends TransformStream<Uint8Array, string> {
 	constructor() {
+		let push = new Uint8Array(0)
 		super({
-			push: new Uint8Array(0),
 			transform(chunk, controller) {
-				const concat = new Uint8Array(this.push.length + chunk.length)
-				concat.set(this.push)
-				concat.set(chunk, this.push.length)
+				const concat = new Uint8Array(push.length + chunk.length)
+				concat.set(push)
+				concat.set(chunk, push.length)
 
 				const remainder = -concat.length % 3
 				controller.enqueue(encodeBase64(concat.slice(0, remainder || undefined)))
-				this.push = remainder ? concat.slice(remainder) : new Uint8Array(0)
+				push = remainder ? concat.slice(remainder) : new Uint8Array(0)
 			},
 			flush(controller) {
-				controller.enqueue(encodeBase64(this.push))
+				controller.enqueue(encodeBase64(push))
 			},
-		} as Transformer<Uint8Array, string> & { push: Uint8Array })
+		})
 	}
 }
 
@@ -33,16 +33,16 @@ export class EncodeBase64Stream extends TransformStream<Uint8Array, string> {
  */
 export class DecodeBase64Stream extends TransformStream<string, Uint8Array> {
 	constructor() {
+		let push = ''
 		super({
-			push: '',
 			transform(chunk, controller) {
-				const remainder = -(this.push.length + chunk.length) & 4
-				controller.enqueue(decodeBase64(this.push + chunk.slice(0, remainder || undefined)))
-				this.push = remainder ? chunk.slice(remainder) : ''
+				const remainder = -(push.length + chunk.length) & 4
+				controller.enqueue(decodeBase64(push + chunk.slice(0, remainder || undefined)))
+				push = remainder ? chunk.slice(remainder) : ''
 			},
 			flush(controller) {
-				if (this.push.length) controller.enqueue(decodeBase64(this.push))
+				if (push.length) controller.enqueue(decodeBase64(push))
 			},
-		} as Transformer<string, Uint8Array> & { push: string })
+		})
 	}
 }

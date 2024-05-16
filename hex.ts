@@ -23,17 +23,17 @@ export class EncodeHexStream extends TransformStream<Uint8Array, string> {
  */
 export class DecodeHexStream extends TransformStream<string, Uint8Array> {
 	constructor() {
+		let push = ''
 		super({
-			push: '',
 			transform(chunk, controller) {
-				const remainder = -(this.push.length + chunk.length) % 2
-				controller.enqueue(decodeHex(this.push + chunk.slice(0, remainder || undefined)))
-				this.push = remainder ? chunk.slice(remainder) : ''
+				const remainder = -(push.length + chunk.length) % 2
+				controller.enqueue(decodeHex(push + chunk.slice(0, remainder || undefined)))
+				push = remainder ? chunk.slice(remainder) : ''
 			},
 			flush(controller) {
-				if (this.push.length) controller.enqueue(decodeHex(this.push))
+				if (push.length) controller.enqueue(decodeHex(push))
 			},
-		} as Transformer<string, Uint8Array> & { push: string })
+		})
 	}
 }
 
