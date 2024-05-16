@@ -36,5 +36,3 @@ export class DecodeHexStream extends TransformStream<string, Uint8Array> {
 		} as Transformer<string, Uint8Array> & { push: string })
 	}
 }
-
-console.log(decodeHex(''))
