@@ -7,7 +7,7 @@ import { DecodeBase64Stream, EncodeBase64Stream } from '@doctor/encoding-stream'
 
 (await Deno.open('./deno.json'))
 	.readable
-	.pipeThrough(new EncodingBase64Stream())
-	.pipeThrough(new DecodingBase64Stream())
+	.pipeThrough(new EncodeBase64Stream())
+	.pipeThrough(new DecodeBase64Stream())
 	.pipeTo(Deno.stdout.writable)
 ```
