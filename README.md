@@ -9,5 +9,5 @@ await (await Deno.open('./deno.json'))
 	.readable
 	.pipeThrough(new EncodeBase64Stream())
 	.pipeThrough(new DecodeBase64Stream())
-	.pipeTo(Deno.stdout.writable)
+	.pipeTo(Deno.stdout.writable, { preventClose: true })
 ```

@@ -15,6 +15,7 @@ import { decodeBase64, encodeBase64 } from '@std/encoding/base64'
  * await (await Deno.open('./deno.json'))
  *   .readable
  *   .pipeThrough(new EncodeBase64Stream())
+ *   .pipeThrough(new TextEncoderStream())
  *   .pipeTo((await Deno.create('./base64.txt')).writable)
  * ```
  */
@@ -51,6 +52,7 @@ export class EncodeBase64Stream extends TransformStream<Uint8Array, string> {
  *
  * await (await Deno.open('./base64.txt'))
  *   .readable
+ *   .pipeThrough(new TextDecoderStream())
  *   .pipeThrough(new DecodeBase64Stream())
  *   .pipeTo((await Deno.create('./deno.json')).writable)
  */

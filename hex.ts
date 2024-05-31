@@ -15,6 +15,7 @@ import { decodeHex, encodeHex } from '@std/encoding/hex'
  * await (await Deno.open('./deno.json'))
  *   .readable
  *   .pipeThrough(new EncodeHexStream())
+ *   .pipeThrough(new TextEncoderStream())
  *   .pipeTo((await Deno.create('./hex.txt')).writable)
  * ```
  */
@@ -37,6 +38,7 @@ export class EncodeHexStream extends TransformStream<Uint8Array, string> {
  *
  * await (await Deno.open('./hex.txt'))
  *   .readable
+ *   .pipeThrough(new TextDecoderStream())
  *   .pipeThrough(new DecodeHexStream())
  *   .pipeTo((await Deno.create('./deno.json')).writable)
  * ```

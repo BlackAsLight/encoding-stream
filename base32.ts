@@ -15,6 +15,7 @@ import { decodeBase32, encodeBase32 } from '@std/encoding/base32'
  * await (await Deno.open('./deno.json'))
  *   .readable
  *   .pipeThrough(new EncodeBase32Stream())
+ *   .pipeThrough(new TextEncoderStream())
  *   .pipeTo((await Deno.create('./base32.txt')).writable)
  * ```
  */
@@ -51,6 +52,7 @@ export class EncodeBase32Stream extends TransformStream<Uint8Array, string> {
  *
  * await (await Deno.open('./base32.txt'))
  *   .readable
+ *   .pipeThrough(new TextDecoderStream())
  *   .pipeThrough(new DecodeBase32Stream())
  *   .pipeTo((await Deno.create('./deno.json')).writable)
  */
