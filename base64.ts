@@ -60,7 +60,7 @@ export class DecodeBase64Stream extends TransformStream<string, Uint8Array> {
 			{
 				push: '',
 				transform(chunk, controller) {
-					const remainder = -(this.push.length + chunk.length) & 4
+					const remainder = -(this.push.length + chunk.length) % 4
 					controller.enqueue(
 						decodeBase64(this.push + chunk.slice(0, remainder || undefined)),
 					)
