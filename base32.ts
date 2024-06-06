@@ -62,11 +62,13 @@ export class DecodeBase32Stream extends TransformStream<string, Uint8Array> {
 			{
 				push: '',
 				transform(chunk, controller) {
-					const remainder = -(this.push.length + chunk.length) % 8
-					controller.enqueue(
-						decodeBase32(this.push + chunk.slice(0, remainder || undefined)),
-					)
-					this.push = remainder ? chunk.slice(remainder) : ''
+					this.push += chunk
+					if (this.push.length < 8) {
+						return
+					}
+					const remainder = -this.push.length % 8
+					controller.enqueue(decodeBase32(this.push.slice(0, remainder || undefined)))
+					this.push = remainder ? this.push.slice(remainder) : ''
 				},
 				flush(controller) {
 					if (this.push.length) controller.enqueue(decodeBase32(this.push))

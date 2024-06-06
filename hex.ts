@@ -49,11 +49,13 @@ export class DecodeHexStream extends TransformStream<string, Uint8Array> {
 			{
 				push: '',
 				transform(chunk, controller) {
-					const remainder = -(this.push.length + chunk.length) % 2
-					controller.enqueue(
-						decodeHex(this.push + chunk.slice(0, remainder || undefined)),
-					)
-					this.push = remainder ? chunk.slice(remainder) : ''
+					this.push += chunk
+					if (this.push.length < 2) {
+						return
+					}
+					const remainder = -this.push.length % 2
+					controller.enqueue(decodeHex(this.push.slice(0, remainder || undefined)))
+					this.push = remainder ? this.push.slice(remainder) : ''
 				},
 				flush(controller) {
 					if (this.push.length) controller.enqueue(decodeHex(this.push))
