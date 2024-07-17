@@ -24,7 +24,6 @@
   "remote": {},
   "workspace": {
     "dependencies": [
-      "jsr:@doctor/iterstar@2",
       "jsr:@std/assert@0",
       "jsr:@std/encoding@0"
     ]
